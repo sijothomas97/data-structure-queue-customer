@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Queue Manager — Live Customer Queue</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Queue Manager</h1>
+    <p class="subtitle">Live customer queue &mdash; enqueue, dequeue, reverse-first-N &mdash; updates in real time via SignalR.</p>
+    <span id="connection" class="conn conn-off">connecting&hellip;</span>
+  </header>
+
+  <section class="metrics" aria-label="Queue metrics">
+    <div class="metric"><span id="m-length">–</span><label>waiting</label></div>
+    <div class="metric"><span id="m-served">–</span><label>served (all time)</label></div>
+    <div class="metric"><span id="m-avgwait">–</span><label>avg wait</label></div>
+    <div class="metric"><span id="m-longest">–</span><label>longest current wait</label></div>
+    <div class="metric"><span id="m-throughput">–</span><label>served / min (last hr)</label></div>
+  </section>
+
+  <section class="controls" aria-label="Queue controls">
+    <form id="enqueue-form" autocomplete="off">
+      <input id="name" type="text" placeholder="Customer name" required maxlength="60" />
+      <input id="age" type="number" placeholder="Age" min="0" max="150" required />
+      <button type="submit" class="btn btn-add">Enqueue</button>
+    </form>
+    <div class="row">
+      <button id="dequeue" class="btn btn-serve">Serve next (dequeue)</button>
+      <span class="reverse-group">
+        <input id="reverse-count" type="number" min="0" value="2" aria-label="Number to reverse" />
+        <button id="reverse" class="btn btn-reverse">Reverse first N</button>
+      </span>
+    </div>
+    <p id="status" class="status" role="status"></p>
+  </section>
+
+  <section aria-label="Current queue">
+    <h2>Current queue <small>(front of the queue is on the left)</small></h2>
+    <div id="empty" class="empty hidden">The queue is empty — add a customer above.</div>
+    <ol id="queue" class="queue"></ol>
+  </section>
+
+  <footer>
+    REST API docs at <a href="/swagger">/swagger</a> &middot; SignalR hub at <code>/hubs/queue</code> &middot; state persisted to SQLite.
+  </footer>
+
+  <script src="lib/signalr.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

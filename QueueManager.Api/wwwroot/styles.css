@@ -1,0 +1,160 @@
+:root {
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --card: #334155;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --green: #4ade80;
+  --amber: #fbbf24;
+  --red: #f87171;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 1.5rem clamp(1rem, 4vw, 3rem);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+header { margin-bottom: 1.25rem; }
+h1 { margin: 0 0 0.25rem; font-size: 1.75rem; }
+.subtitle { margin: 0; color: var(--muted); }
+h2 { font-size: 1.1rem; margin: 1.5rem 0 0.75rem; }
+h2 small { color: var(--muted); font-weight: normal; }
+
+.conn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+.conn-on { background: rgba(74, 222, 128, 0.15); color: var(--green); }
+.conn-off { background: rgba(248, 113, 113, 0.15); color: var(--red); }
+
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+.metric {
+  background: var(--panel);
+  border-radius: 0.6rem;
+  padding: 0.6rem 1rem;
+  min-width: 8rem;
+  display: flex;
+  flex-direction: column;
+}
+.metric span { font-size: 1.35rem; font-weight: 600; color: var(--accent); }
+.metric label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+.controls {
+  background: var(--panel);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.controls form, .controls .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.reverse-group { display: flex; gap: 0.5rem; align-items: center; }
+
+input {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--card);
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.95rem;
+}
+input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+#name { flex: 1 1 12rem; }
+#age, #reverse-count { width: 5.5rem; }
+
+.btn {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.55rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #0b1120;
+  transition: transform 0.1s ease, filter 0.15s ease;
+}
+.btn:hover { filter: brightness(1.15); }
+.btn:active { transform: scale(0.96); }
+.btn-add { background: var(--green); }
+.btn-serve { background: var(--accent); }
+.btn-reverse { background: var(--amber); }
+
+.status { margin: 0; min-height: 1.2em; font-size: 0.85rem; color: var(--muted); }
+.status.error { color: var(--red); }
+
+.queue {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem 0 1rem;
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  min-width: 10rem;
+  flex: 0 0 auto;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+.card .pos {
+  position: absolute;
+  top: -0.55rem;
+  left: -0.55rem;
+  background: var(--accent);
+  color: #0b1120;
+  font-size: 0.75rem;
+  font-weight: 700;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card.front { outline: 2px solid var(--green); }
+.card .name { font-weight: 600; margin-bottom: 0.15rem; overflow: hidden; text-overflow: ellipsis; }
+.card .meta { font-size: 0.78rem; color: var(--muted); }
+.card .wait { font-size: 0.78rem; color: var(--amber); }
+
+/* Animations */
+.card.enter { animation: pop-in 0.35s ease; }
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(0.75rem) scale(0.9); }
+  to { opacity: 1; transform: none; }
+}
+.card.moving { transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+.card.flash { animation: flash 0.5s ease; }
+@keyframes flash {
+  0% { background: var(--amber); }
+  100% { background: var(--card); }
+}
+
+.empty { color: var(--muted); padding: 1rem 0; }
+.hidden { display: none; }
+
+footer { margin-top: 2rem; font-size: 0.8rem; color: var(--muted); }
+footer a { color: var(--accent); }
+code { background: var(--panel); padding: 0.1rem 0.35rem; border-radius: 0.3rem; }

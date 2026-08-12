@@ -1,0 +1,12 @@
+bin/
+obj/
+**/bin/
+**/obj/
+.vs/
+.git/
+.github/
+TestResults/
+*.user
+.DS_Store
+src/
+data/
